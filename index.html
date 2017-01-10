@@ -1,19 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/css/bootstrap.css" />
     <meta charset="UTF-8">
     <title>Title</title>
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/materialize.css">
+    <link rel="stylesheet" href="css/bootstrap-rtl.css">
+    <style>
+        .disabled {
+            color: orange;
+        }
+
+        .collection li.collection-item:not(.active):hover {
+            background-color: #ddd;
+        }
+
+        body {
+            background-color: #fcfcfc;
+        }
+
+        .collection .collection-item.active {
+            transition: 0.5s;
+        }
+    </style>
 </head>
 <body>
 
-<div class="con"></div>
+<div class="navbar navbar-default">
+    <a class="navbar-brand" href="#">Vuejs Event</a>
+</div>
+<div style="margin: 10px auto" id="app" class="container-fluid">
+    <div class="row">
+        <div class="col-md-12"><br><br><br><br></div>
+        <div v-for="product in products" class="col-md-4">
+            <plan :products="product.items" :subject="product.name"></plan>
+        </div>
 
+    </div>
+</div>
 
+<template id="plan-id">
 
+    <div>
+        <ul class="collection with-header z-depth-2">
+            <li class="collection-header teal white-text text-center"><h4>{{subject}}</h4></li>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/js/bootstrap.js"></script>
+            <li v-for="plan in products" class="collection-item" :class="isOrder(plan)? 'active':''">
+                <div>
+                    {{plan.name}} - {{plan.price}}
+                    <a href="#!" class="secondary-content left" @click="order(plan)">
+                        <i class="material-icons">{{isOrder(plan)? 'remove_shopping_cart':'shopping_cart'}}</i>
+                    </a>
+                </div>
+            </li>
+            <li class="collection-header teal white-text">
+                <span>جمع: {{sumprice}}</span>
+                <span class="left">تعداد: {{total}}</span>
+            </li>
 
+        </ul>
+        <a class="waves-effect waves-light btn" :class="(total > 0)?'':'disabled'">
+            <i class="material-icons left">shopping_cart</i>پرداخت
+        </a>
+
+    </div>
+</template>
+
+<script src="js/jquery.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/materialize.min.js"></script>
+<script src="js/vue.js"></script>
+<script src="js/me.js"></script>
+<script src="js/jquery.nestable.js"></script>
 
 
 </body>
