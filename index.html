@@ -23,56 +23,63 @@
         .collection .collection-item.active {
             transition: 0.5s;
         }
+
+        .paper{
+            background-color: white;
+        }
     </style>
 </head>
 <body>
 
-<div class="navbar navbar-default">
-    <a class="navbar-brand" href="#">Vuejs Event</a>
-</div>
-<div style="margin: 10px auto" id="app" class="container-fluid">
-    <div class="row">
-        <div class="col-md-12"><br><br><br><br></div>
-        <div v-for="product in products" class="col-md-4">
-            <plan :products="product.items" :subject="product.name"></plan>
+<div id="app">
+    <div class="container">
+
+        <div class="row">
+
+            <div class="col-md-8 card">
+
+                    <div v-for="food in foods" class="col-md-4">
+                        <restaurant :foods="food.items" :type="food.type"></restaurant>
+                    </div>
+                <div class="col-md-4"></div>
+            </div>
+
         </div>
-
     </div>
-</div>
 
-<template id="plan-id">
+    <template id="res-id">
 
-    <div>
-        <ul class="collection with-header z-depth-2">
-            <li class="collection-header teal white-text text-center"><h4>{{subject}}</h4></li>
+        <div>
+            <ul class="collection with-header z-depth-2">
+                <li class="collection-header teal white-text text-center"><h4>{{type}}</h4></li>
 
-            <li v-for="plan in products" class="collection-item" :class="isOrder(plan)? 'active':''">
-                <div>
-                    {{plan.name}} - {{plan.price}}
-                    <a href="#!" class="secondary-content left" @click="order(plan)">
-                        <i class="material-icons">{{isOrder(plan)? 'remove_shopping_cart':'shopping_cart'}}</i>
-                    </a>
-                </div>
-            </li>
-            <li class="collection-header teal white-text">
-                <span>جمع: {{sumprice}}</span>
-                <span class="left">تعداد: {{total}}</span>
-            </li>
+                <li v-for="food in foods" class="collection-item">
+                    <div>
+                        {{food.name}} - {{food.price}}
+                        <a href="#!" class="secondary-content left" @click="order(food)">
+                            <div class="badge">{{ food.qty }}</div>
+                        </a>
+                    </div>
+                </li>
+                <li class="collection-header teal white-text">
+                    <span>جمع: {{sumprice}}</span>
+                    <span class="left">تعداد: {{total}}</span>
+                </li>
 
-        </ul>
-        <a class="waves-effect waves-light btn" :class="(total > 0)?'':'disabled'">
-            <i class="material-icons left">shopping_cart</i>پرداخت
-        </a>
+            </ul>
+            <a class="waves-effect waves-light btn" :class="(total > 0)?'':'disabled'">
+                <i class="material-icons left">shopping_cart</i>پرداخت
+            </a>
 
-    </div>
-</template>
+        </div>
+    </template>
 
-<script src="js/jquery.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/materialize.min.js"></script>
-<script src="js/vue.js"></script>
-<script src="js/me.js"></script>
-<script src="js/jquery.nestable.js"></script>
+    <script src="js/jquery.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/materialize.min.js"></script>
+    <script src="js/vue.js"></script>
+    <script src="js/me.js"></script>
+    <script src="js/jquery.nestable.js"></script>
 
 
 </body>

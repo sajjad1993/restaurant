@@ -1,33 +1,30 @@
-Vue.component('plan', {
-    template: '#plan-id',
-    props: ['products', 'subject'],
+Vue.component('restaurant', {
+    template: '#res-id',
+    props: ['foods', 'type'],
     data: function () {
         return {
-            basket: [],
+            basket: [
+
+            ],
         }
     },
     methods: {
-        order: function (product) {
-            if (product.order == false) {
-                product.order = true;
-                this.basket.push(product);
-            }
-            else {
-                product.order = false;
+        order: function (food) {
 
-                var index = this.basket.indexOf(product)
-                this.basket.splice(index, 1)
-            }
+                food.order = true;
+                food.qty ++;
+                this.basket.push(food);
+
         },
-        isOrder: function (product) {
-            return (product.order == true);
+        isOrder: function (food) {
+            return (food.order == true);
         }
     },
     computed: {
         sumprice: function () {
             var price = 0;
             for (var i = 0; i < this.basket.length; i++) {
-                price += this.basket[i].price;
+                price += this.basket[i].price*this.basket[i].qty;
             }
             return price;
         },
@@ -36,30 +33,62 @@ Vue.component('plan', {
         },
     }
 });
-var parent = new Vue({
+ new Vue({
     el: '#app',
     data: {
         message: [],
-        products: [
+        foods: [
             {
-                name:'موبایل',
+                type:'پیتزا ',
                 items: [
-                    {name: 'گوشی 1', price: 1000, order: false},
-                    {name: 'گوشی 2', price: 700, order: false},
-                    {name: 'گوشی 3', price: 500, order: false},
-                    {name: 'گوشی 4', price: 300, order: false},
-                    {name: 'گوشی 5', price: 100, order: false}
+                    {name: 'رست بیف', price: 20000, order: false,qty:0,total:8},
+                    {name: 'قارچ و گوشت', price: 15000, order: false,qty:0,total:8},
+                    {name: 'پپرونی', price: 12000, order: false,qty:0,total:8},
+                    {name: 'سبزیجات', price: 18000, order: false,qty:0,total:8},
+                    {name: 'قارچ و مرغ', price: 10000, order: false,qty:0,total:8}
                 ]
             },
 
             {
-                name:'لبتاپ',
+                type:'ساندویچ',
                 items: [
-                    {name: 'لپ تاپ 1', price: 21000, order: false},
-                    {name: 'لپ تاپ 2', price: 2700, order: false},
-                    {name: 'لپ تاپ 3', price: 2500, order: false},
-                    {name: 'لپ تاپ 4', price: 2300, order: false},
-                    {name: 'لپ تاپ 5', price: 2100, order: false}
+                    {name: 'هات داگ', price: 8000, order: false,qty:0,total:8},
+                    {name: 'ساندویچ مرغ', price: 6000, order: false,qty:0,total:8},
+                    {name: 'ساندویچ خوراک مکزیکی', price: 4500, order: false,qty:0,total:8}
+
+                ]
+            },
+
+            {
+                type:'برگر',
+                items: [
+                    {name: 'چیز برگر', price: 10000, order: false,qty:0,total:8},
+                    {name: 'ذغال برگر', price: 9000, order: false,qty:0,total:8},
+                    {name: 'قارچ برگر', price: 6000, order: false,qty:0,total:8},
+                    {name: 'دوبل برگر', price: 17000, order: false,qty:0,total:8}
+                ]
+            },
+
+            {
+                type:'سوخاری',
+                items: [
+                    {name: 'قارچ سوخاری', price: 16000, order: false,qty:0,total:8},
+                    {name: 'اسپایسی ۵ تکه', price: 14000, order: false,qty:0,total:8},
+                    {name: 'اسپایسی ۴ تکه', price: 16000, order: false,qty:0,total:8},
+                    {name: 'پیاز سوخاری', price: 4000, order: false,qty:0,total:8},
+                ]
+            },
+
+            {
+                type:'سالاد و پیش غذا',
+                items: [
+                    {name: 'سالاد ماکارونی', price: 3000, order: false,qty:0,total:8},
+                    {name: 'سالاد فصل', price: 1000, order: false,qty:0,total:8},
+                    {name: 'سالاد کلم', price: 1500, order: false,qty:0,total:8},
+                    {name: 'سالاد فرانسوی', price: 4500, order: false,qty:0,total:8},
+                    {name: 'سالاد ایتالیایی', price: 6500, order: false,qty:0,total:8},
+                    {name: 'سالاد ترکی', price: 7000, order: false,qty:0,total:8}
+
                 ]
             }
         ]
