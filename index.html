@@ -24,7 +24,7 @@
             transition: 0.5s;
         }
 
-        .paper{
+        .paper {
             background-color: white;
 
         }
@@ -35,53 +35,62 @@
 <div id="app">
     <div class="container">
 
+        <restaurant :foods="foods"></restaurant>
+
+    </div>
+</div>
+
+<template id="res-id">
+
+    <div>
         <div class="row">
 
             <div class="col-md-8 card">
 
-                    <div v-for="food in foods" class="col-md-4 ">
-                        <restaurant :foods="food.items" :type="food.type"></restaurant>
-                    </div>
-                <div class="col-md-4"></div>
+                <div v-for="food in foods" class="col-md-4 ">
+                    <ul class="collection with-header z-depth-2">
+                        <li class="collection-header teal white-text text-center"><h4>{{food.type}}</h4></li>
+                        <li v-for="item in food.items" class="collection-item">
+
+                            <div>
+                                {{item.name}} - {{item.price}}
+
+                            </div>
+                            <a href="#!" class="secondary-content left" @click="order(food)"></a>
+                        </li>
+
+                    </ul>
+                </div>
+
             </div>
+
+            <div class="col-md-4"></div>
+
 
         </div>
     </div>
-
-    <template id="res-id">
-
-        <div>
-            <ul class="collection with-header z-depth-2">
-                <li class="collection-header teal white-text text-center"><h4>{{type}}</h4></li>
-
-                <li v-for="food in foods" class="collection-item">
-                    <div>
-                        {{food.name}} - {{food.price}}
-                        <a href="#!" class="secondary-content left" @click="order(food)">
-                            <div class="badge">{{ food.qty }}</div>
-                        </a>
-                    </div>
-                </li>
-                <li class="collection-header teal white-text">
-                    <span>جمع: {{sumprice}}</span>
-                    <span class="left">تعداد: {{total}}</span>
-                </li>
-
-            </ul>
-            <a class="waves-effect waves-light btn" :class="(total > 0)?'':'disabled'">
-                <i class="material-icons left">shopping_cart</i>پرداخت
-            </a>
-
-        </div>
-    </template>
-
-    <script src="js/jquery.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/materialize.min.js"></script>
-    <script src="js/vue.js"></script>
-    <script src="js/me.js"></script>
-    <script src="js/jquery.nestable.js"></script>
+</template>
+<!--<a href="#!" class="secondary-content left" @click="order(food)">-->
+<!--<div class="badge">{{ item.qty }}</div>-->
+<!--</a>-->
 
 
+<!--<li class="collection-header teal white-text">-->
+<!--<span>جمع: {{sumprice}}</span>-->
+<!--<span class="left">تعداد: {{total}}</span>-->
+<!--</li>-->
+
+<!--</ul>-->
+<!--<a class="waves-effect waves-light btn" :class="(total > 0)?'':'disabled'">-->
+<!--<i class="material-icons left">shopping_cart</i>پرداخت-->
+<!--</a>-->
+<script src="js/jquery.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/materialize.min.js"></script>
+<script src="js/vue.js"></script>
+<script src="js/me.js"></script>
+<script src="js/jquery.nestable.js"></script>
+
+</div>
 </body>
 </html>

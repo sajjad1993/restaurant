@@ -1,13 +1,7 @@
 Vue.component('restaurant', {
     template: '#res-id',
-    props: ['foods', 'type'],
-    data: function () {
-        return {
-            basket: [
+    props: ['foods'],
 
-            ],
-        }
-    },
     methods: {
         order: function (food) {
 
@@ -32,6 +26,22 @@ Vue.component('restaurant', {
             return this.basket.length;
         },
     }
+});
+
+
+Vue.component('cart',{
+    template: '#card-id',
+    props: ['foods', 'type'],
+    data: function () {
+        return {
+            basket: [
+
+            ],
+        }
+    },
+
+
+
 });
  new Vue({
     el: '#app',
@@ -91,7 +101,10 @@ Vue.component('restaurant', {
 
                 ]
             }
-        ]
+        ],
+        costumer:{
+
+        }
     },
     methods: {
         addMessage: function (msg) {
