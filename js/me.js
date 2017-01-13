@@ -1,6 +1,6 @@
-Vue.component('restaurant', {
+var restaurant = Vue.component('restaurant', {
     template: '#res-id',
-    props: ['foods'],
+    props: ['food','b'],
     data: function () {
         return {
             basket: [],
@@ -17,6 +17,8 @@ Vue.component('restaurant', {
                 food.order = true;
                 food.qty++;
                 this.basket.push(food);
+                this.b.push(food);
+
             }
 
         },
@@ -32,27 +34,30 @@ Vue.component('restaurant', {
 
 Vue.component('cart', {
     template: '#card-id',
-    props: ['basket'],
+    components: {
+        restaurant: restaurant,
+    },
+    props: ['basket','b'],
     methods: {
         removeItem:function(food){
 
             food.order = false;
-            var index = basket.indexOf(food.name);
+            var index = this.b.indexOf(food.name);
 
-            this.basket.splice(index, 1)
+            this.b.splice(index, 1)
         }
     },
 
     computed: {
         sumprice: function () {
             var price = 0;
-            for (var i = 0; i < basket.length; i++) {
-                price += basket[i].price * basket[i].qty;
+            for (var i = 0; i < this.b.length; i++) {
+                price += this.b[i].price * this.b[i].qty;
             }
             return price;
         },
         total: function () {
-            return basket.length;
+            return this.b.length;
         },
     }
 
@@ -61,6 +66,7 @@ Vue.component('cart', {
 new Vue({
     el: '#app',
     data: {
+        b:       [],
         message: [],
         foods: [
             {
