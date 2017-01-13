@@ -24,34 +24,37 @@ Vue.component('restaurant', {
             return (food.order == true);
         },
 
+    },
+
+
+
+});
+
+Vue.component('cart', {
+    template: '#card-id',
+    props: ['basket'],
+    methods: {
         removeItem:function(food){
 
             food.order = false;
-            var index = this.basket.indexOf(food.name);
+            var index = basket.indexOf(food.name);
 
             this.basket.splice(index, 1)
         }
     },
 
-
     computed: {
         sumprice: function () {
             var price = 0;
-            for (var i = 0; i < this.basket.length; i++) {
-                price += this.basket[i].price * this.basket[i].qty;
+            for (var i = 0; i < basket.length; i++) {
+                price += basket[i].price * basket[i].qty;
             }
             return price;
         },
         total: function () {
-            return this.basket.length;
+            return basket.length;
         },
     }
-});
-
-
-Vue.component('cart', {
-    template: '#card-id',
-    props: ['foods', 'type'],
 
 
 });
