@@ -1,4 +1,16 @@
-var restaurant = Vue.component('restaurant', {
+Vue.component('tabs',{
+    template: '#tabs-id',
+    props: ['foods'],
+    methods: {
+        href:function(food){
+            return '#' + food.type.toLowerCase().replace(/ /g,'-');
+        }
+    },
+});
+
+
+
+Vue.component('restaurant', {
     template: '#res-id',
     props: ['food','b'],
     data: function () {
@@ -28,15 +40,23 @@ var restaurant = Vue.component('restaurant', {
 
     },
 
+    computed: {
+        total: function () {
+            var total = 0;
+            for (var i = 0; i < this.basket.length; i++) {
+                total +=  this.b[i].qty;
+            }
+            return total;
+        }
+    }
+
 
 
 });
 
 Vue.component('cart', {
     template: '#card-id',
-    components: {
-        restaurant: restaurant,
-    },
+
     props: ['basket','b'],
     methods: {
         removeItem:function(food){
@@ -63,6 +83,8 @@ Vue.component('cart', {
 
 
 });
+
+
 new Vue({
     el: '#app',
     data: {
@@ -70,7 +92,7 @@ new Vue({
         message: [],
         foods: [
             {
-                type: 'پیتزا ',
+                type: 'پیتزا',
                 items: [
                     {name: 'رست بیف', price: 20000, order: false, qty: 0, total: 8},
                     {name: 'قارچ و گوشت', price: 15000, order: false, qty: 0, total: 8},
@@ -111,7 +133,7 @@ new Vue({
             },
 
             {
-                type: 'سالاد و پیش غذا',
+                type: 'سالاد',
                 items: [
                     {name: 'سالاد ماکارونی', price: 3000, order: false, qty: 0, total: 8},
                     {name: 'سالاد فصل', price: 1000, order: false, qty: 0, total: 8},
@@ -128,6 +150,12 @@ new Vue({
     methods: {
         addMessage: function (msg) {
             this.message.push(msg);
+        },
+        href:function(food){
+            return '#' + food.type.toLowerCase().replace(/ /g,'-');
         }
-    }
+    },
+    computed:{
+
+    },
 })
