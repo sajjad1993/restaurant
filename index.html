@@ -34,8 +34,35 @@
 
 <div id="app">
     <div class="container">
+        <div class="row">
 
-        <restaurant :foods="foods"></restaurant>
+            <div class="col-md-8 card">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a data-toggle="tab" href="#توضیحات">توضیحات</a></li>
+                    <li v-for="food in foods"><a data-toggle="tab" :href="href(food)">{{ food.type }}</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div id="توضیحات" class="tab-pane fade in active">
+                        <h3>توضیحات</h3>
+                        <p>رستوران ما اره حالیت باشه خیلی خوبه .</p>
+                    </div>
+
+                    <div v-for="food in foods" :id="food.type" class="tab-pane fade">
+
+                        <restaurant :food="food" :b="b"></restaurant>
+
+                    </div>
+                </div>
+
+                <!--<restaurant :food="food" :b="b"></restaurant>-->
+
+            </div>
+
+            <div class="col-md-4">
+                <cart :b="b"></cart>
+
+            </div>
+        </div>
 
     </div>
 </div>
@@ -43,65 +70,61 @@
 <template id="res-id">
 
     <div>
-        <div class="row">
+        <ul class="collection">
+            <li v-for="item in food.items" class="collection-item">
 
-            <div class="col-md-8 card">
+                <div>
+                    {{item.name}} - {{item.price}}
 
-                <div v-for="food in foods" class="col-md-4 ">
-                    <ul class="collection with-header z-depth-2">
-                        <li class="collection-header teal white-text text-center"><h4>{{food.type}}</h4></li>
-                        <li v-for="item in food.items" class="collection-item">
-
-                            <div>
-                                {{item.name}} - {{item.price}}
-
-                                <a href="#!" class="secondary-content left" @click="order(item)">
-                                    <div class="badge">{{ item.qty }}</div>
-                                </a>
-                            </div>
-
-
-                        </li>
-
-                    </ul>
+                    <a href="#!" class="secondary-content left" @click="order(item)">
+                        <div class="badge">{{ item.qty }}</div>
+                    </a>
                 </div>
 
-            </div>
 
-            <div class="col-md-4">
-                <ul class="collection with-header z-depth-2">
-                    <li class="collection-header teal white-text text-center"><h4>صندوق</h4></li>
-                    <li v-for="item in basket" class="collection-item">
+            </li>
+            <li class="collection-header teal white-text">
+                <span>تعداد: {{total}}</span>
 
-                        <div>
-                            {{item.name}} - {{item.price}}
-                            <div class="secondary-content left">
-                                <a href="#!" class="" @click="order(item)">
-                                    <div class="badge">{{ item.qty }}</div>
-                                </a>
-                                <a href="#!" class="" @click="removeItem(item)">
-                                    <div class="badge"><i class="tiny material-icons">delete</i></div>
-                                </a>
+            </li>
+        </ul>
+    </div>
 
-                            </div>
-                        </div>
-                    </li>
-                    <li class="collection-header teal white-text">
-                        <span>جمع: {{sumprice}}</span>
-                        <span class="left">تعداد: {{total}}</span>
-                    </li>
-                    <li>
-                        <a class="waves-effect waves-light btn" :class="(total > 0)?'':'disabled'">
-                            <i class="material-icons left">shopping_cart</i>پرداخت
+
+
+</template>
+
+
+<template id="card-id">
+    <div>
+        <ul class="collection with-header z-depth-2">
+            <li class="collection-header teal white-text text-center"><h4>صندوق</h4></li>
+            <li v-for="item in b" class="collection-item">
+
+                <div>
+                    {{item.name}} - {{item.price}}
+                    <div class="secondary-content left">
+                        <a href="#!" class="" @click="order(item)">
+                            <div class="badge">{{ item.qty }}</div>
                         </a>
-                    </li>
-                </ul>
+                        <a href="#!" class="" @click="removeItem(item)">
+                            <div class="badge"><i class="tiny material-icons">delete</i></div>
+                        </a>
 
+                    </div>
+                </div>
+            </li>
+            <li class="collection-header teal white-text">
+                <span>جمع: {{sumprice}}</span>
+                <span class="left">تعداد: {{total}}</span>
+            </li>
+            <li>
+                <a class="waves-effect waves-light btn" :class="(total > 0)?'':'disabled'">
+                    <i class="material-icons left">shopping_cart</i>پرداخت
+                </a>
+            </li>
+        </ul>
 
-            </div>
-
-
-        </div>
     </div>
 </template>
 <!--<a href="#!" class="secondary-content left" @click="order(food)">-->
